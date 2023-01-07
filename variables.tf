@@ -1,6 +1,6 @@
 variable "module_name" {
   type        = string
-  default     = "observability_hub"
+  default     = "wireguard_vpn"
   description = "The module name used throughout resources."
 }
 
