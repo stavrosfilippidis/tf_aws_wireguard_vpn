@@ -18,6 +18,8 @@ resource "aws_security_group_rule" "vpn_ingress" {
   from_port                = var.wireguard_traffic_port
   to_port                  = var.wireguard_traffic_port
   protocol                 = "tcp"
-  cidr_blocks              = [data.aws_vpc.vpc.cidr_block]
-  security_group_id        = aws_security_group.observability_hub_security_group.id
+  cidr_blocks              = ["0.0.0.0"]
+  security_group_id        = aws_security_group.wireguard_vpn.id
 }
+
+

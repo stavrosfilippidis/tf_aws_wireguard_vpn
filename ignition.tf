@@ -33,9 +33,10 @@ systemd:
                     --sysctl="net.ipv4.conf.all.src_valid_mark=1" \
                     --sysctl="net.ipv4.ip_forward=1" \
                     --restart unless-stopped \
+                    --privileged
                     ${var.wireguard_image}
         User=core
-        Group=core
+        Group=core 
         Restart=always
         RestartSec=1min
         [Install]

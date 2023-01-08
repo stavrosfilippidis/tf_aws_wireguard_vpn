@@ -41,7 +41,7 @@ variable "wireguard_dashboard_port" {
 variable "wireguard_image" {
   type        = string
   default     = "docker.io/weejewel/wg-easy@sha256:ea65f283dfeb62628ce942ce38974f9db05177aa27ab69b787115b78591552f3"
-  description = "The wireguard oci image location used for the observability hub."
+  description = "The wireguard oci image location used for pulling the image."
 }
 
 variable "wireguard_wg_host" {
