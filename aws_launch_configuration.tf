@@ -6,8 +6,8 @@ resource "aws_launch_template" "wireguard_vpn" {
   name                   =  "${var.module_name}_${random_string.uid.result}"
   image_id               =  data.aws_ami.fedora_coreos.id
   instance_type          =  var.instance_type
-  vpc_security_group_ids =  [aws_security_group.observability_hub_security_group.id]
-  user_data              =  base64encode(data.ct_config.observability_hub_cluster.rendered)
+  vpc_security_group_ids =  [aws_security_group.wireguard_vpn.id]
+  user_data              =  base64encode(data.ct_config.wireguard_vpn.rendered)
   
   block_device_mappings {
     device_name = "/dev/xvda"
