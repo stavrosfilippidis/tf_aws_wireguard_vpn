@@ -38,7 +38,7 @@ variable "wireguard_dashboard_port" {
   description = "The Port used for accesing the Dashboard of the VPN."
 }
 
-variable "wireguard_image" {
+variable "wireguard_vpn_image" {
   type        = string
   default     = "docker.io/weejewel/wg-easy@sha256:ea65f283dfeb62628ce942ce38974f9db05177aa27ab69b787115b78591552f3"
   description = "The wireguard oci image location used for pulling the image."
@@ -50,8 +50,45 @@ variable "wireguard_wg_host" {
   description = "The wireguard host used for the vpn."
 }
 
-variable "wireguard_wg_host" {
+variable "wireguard_password" {
   type        = string
-  default     = "test_password"
-  description = "The wireguard passsword used for accesing the Dashboard."
+  default     = "testingtesting"
+  description = "The wireguard password used for accesing the dashboard."
+}
+
+variable "authorized_key" {
+  type        = string
+  default     = ""
+  description = "SSH key used to grant access to the machine spawned with this configuration."
+}
+
+variable "node_exporter_image_name" {
+  type        = string
+  default     = "docker.io/prom/node-exporter:latest"
+  description = "The node exporter oci image location used for exposing metrics."
+}
+
+variable "instance_type" {
+  type        = string
+  default     = "t3.small"
+}
+
+variable "instance_volume_size" {
+  type        = number
+  default     = 20
+}
+
+variable "instance_desired_count" {
+  type        = number
+  default     = 1 
+}
+
+variable "instance_max_count" {
+  type        = number
+  default     = 1
+}
+
+variable "instance_min_count" {
+  type        = number
+  default     = 1
 }

@@ -12,14 +12,32 @@ resource "aws_security_group" "wireguard_vpn" {
   }
 }
 
-resource "aws_security_group_rule" "vpn_ingress" {
+resource "aws_security_group_rule" "vpn_ingress_tcp" {
   type                     = "ingress"
   description              = "Ingress port used for clients to connect with the VPN."
   from_port                = var.wireguard_traffic_port
   to_port                  = var.wireguard_traffic_port
   protocol                 = "tcp"
-  cidr_blocks              = ["0.0.0.0"]
+  cidr_blocks              = ["0.0.0.0/0"]
   security_group_id        = aws_security_group.wireguard_vpn.id
 }
 
+resource "aws_security_group_rule" "vpn_ingress_udp" {
+  type                     = "ingress"
+  description              = "Ingress port used for clients to connect with the VPN."
+  from_port                = var.wireguard_traffic_port
+  to_port                  = var.wireguard_traffic_port
+  protocol                 = "udp"
+  cidr_blocks              = ["0.0.0.0/0"]
+  security_group_id        = aws_security_group.wireguard_vpn.id
+}
 
+resource "aws_security_group_rule" "ssh_access" {
+  type                     = "ingress"
+  description              = "Used to access the metrics collector over ssh."
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  cidr_blocks              = ["0.0.0.0/0"]
+  security_group_id        = aws_security_group.wireguard_vpn.id
+}

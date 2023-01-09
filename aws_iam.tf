@@ -15,3 +15,8 @@ resource "aws_iam_role" "wireguard_vpn" {
     ]
   })
 }
+
+resource "aws_iam_instance_profile" "wireguard_vpn" {
+  name = "${var.module_name}_${random_string.uid.result}"
+  role = aws_iam_role.wireguard_vpn.name
+}
