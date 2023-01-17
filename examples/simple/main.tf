@@ -18,3 +18,9 @@ data "aws_subnet_ids" "default" {
     values = [true]
   }
 }
+
+# Configure the AWS Provider
+provider "aws" {
+  region = "eu-central-1"
+  profile = "default"
+}

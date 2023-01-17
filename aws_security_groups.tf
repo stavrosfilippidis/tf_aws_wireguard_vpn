@@ -12,6 +12,16 @@ resource "aws_security_group" "wireguard_vpn" {
   }
 }
 
+resource "aws_security_group_rule" "wireguard_prometheus_port" {
+  type                     = "ingress"
+  description              = "Ingress port used for scrapping metrics."
+  from_port                = var.wireguard_prometheus_port
+  to_port                  = var.wireguard_prometheus_port
+  protocol                 = "tcp"
+  cidr_blocks              = [data.aws_vpc.default.cidr_block]
+  security_group_id        = aws_security_group.wireguard_vpn.id
+}
+
 resource "aws_security_group_rule" "vpn_ingress_tcp" {
   type                     = "ingress"
   description              = "Ingress port used for clients to connect with the VPN."

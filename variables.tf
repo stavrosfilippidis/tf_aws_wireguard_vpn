@@ -56,6 +56,24 @@ variable "wireguard_password" {
   description = "The wireguard password used for accesing the dashboard."
 }
 
+variable "wireguard_prometheus_exporter_image_repository" {
+  type        = string
+  default     = "docker.io/mindflavor/prometheus-wireguard-exporter"
+  description = "OCI image repository for Wireguard Prometheus exporter."
+}
+
+variable "wireguard_prometheus_exporter_image_version" {
+  type        = string
+  default     = "3.6.6"
+  description = "OCI image version or tag for Wireguard Prometheus exporter."
+}
+
+variable "wireguard_prometheus_port" {
+  type        = number
+  default     = 9586
+  description = "Wireguard Prometheus port, used for metrics."
+}
+
 variable "authorized_key" {
   type        = string
   default     = ""
