@@ -32,7 +32,7 @@ variable "wireguard_traffic_port" {
   description = "The Port used for the vpn to communicate."
 }
 
-variable "wireguard_dashboard_port" {
+variable "wireguard_client_port" {
   type        = number
   default     = 51821
   description = "The Port used for accesing the Dashboard of the VPN."
@@ -82,7 +82,7 @@ variable "authorized_key" {
 
 variable "node_exporter_image_name" {
   type        = string
-  default     = "docker.io/prom/node-exporter:latest"
+  default     = "docker.io/prom/node-exporter@sha256:39c642b2b337e38c18e80266fb14383754178202f40103646337722a594d984c"
   description = "The node exporter oci image location used for exposing metrics."
 }
 
@@ -98,7 +98,7 @@ variable "instance_volume_size" {
 
 variable "instance_desired_count" {
   type        = number
-  default     = 1 
+  default     = 1
 }
 
 variable "instance_max_count" {
@@ -110,3 +110,62 @@ variable "instance_min_count" {
   type        = number
   default     = 1
 }
+
+variable "wireguard_interface_name" {
+  type        = string
+  default     = "wg0"
+  description = "Name of the Wireguard interface."
+}
+
+variable "wireguard_authorized_peers" {
+  type = list(object({
+    friendly_name = string
+    public_key    = string
+    allowed_ips   = string
+  }))
+  description = "List of authorized peers that are allowed to connect to the vpn."
+}
+
+variable "wireguard_interface_address" {
+  type        = string
+  description = "The Ip Address of the Wireguard VPN."
+}
+
+variable "wireguard_ingress_cidr_blocks" {
+  type        = list(string)
+  description = "List of CIDR blocks to authorize Wireguard to tunnel from."
+  default     = ["0.0.0.0/0"]
+}
+
+variable "wireguard_private_key" {
+  type        = string
+  description = "Wireguard private key."
+}
+
+        # inline: |
+        #   [Interface]
+        #   PrivateKey = ${var.wireguard_private_key}
+        #   Address = ${var.wireguard_interface_address}
+        #   ListenPort = ${var.wireguard_port}
+        #   MTU = 1420
+        #   PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o ens5 -j MASQUERADE
+        #   PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ens5 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o ens5 -j MASQUERADE
+
+        #   # Client: stav (92ec53a9-92e6-4809-8888-2910b1cb6698)
+        #   [Peer]
+        #   PublicKey = ${peer.public_key}
+        #   AllowedIPs = ${peer.allowed_ips}
+
+        # inline: |
+        #   [Interface]
+        #   PrivateKey = OJz+yhI/K8zX9LATiKdsGaP1jB2yj32GYr7dFJuDs3Q= 
+        #   Address = 192.0.2.1/24 
+        #   ListenPort = 51820
+        #   MTU = 1420
+        #   PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o ens5 -j MASQUERADE
+        #   PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ens5 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o ens5 -j MASQUERADE
+
+        #   # Client: stav (92ec53a9-92e6-4809-8888-2910b1cb6698)
+        #   [Peer]
+        #   PublicKey = Q4LijXHxqNcTZA/iGyIxA3ra2lSZlQwYbcN0xcmdJCI=
+        #   AllowedIPs = 192.0.2.1/32

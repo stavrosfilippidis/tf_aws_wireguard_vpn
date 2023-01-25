@@ -84,7 +84,7 @@ storage:
       mode: 0644
       contents:
         inline: |
-          net.ipv4.ip_forward = 1
+          net.ipv4.ip_forward = 1 
 
     - path: /etc/sysctl.d/90-ipv6-ip-forwarding.conf
       mode: 0644
@@ -101,25 +101,26 @@ storage:
       contents:
         inline: |
           [Interface]
-          PrivateKey = 0P3jkDge92PFCwGNR/++lE7h3abYxMwJtBeYva00eUY=
-          Address = 10.8.0.1/24
-          ListenPort = 51820
+          PrivateKey = ${var.wireguard_private_key}
+          Address = ${var.wireguard_interface_address}
+          ListenPort = ${var.wireguard_traffic_port}
+          MTU = 1420
           PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o ens5 -j MASQUERADE
           PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ens5 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o ens5 -j MASQUERADE
 
-
           # Client: stav (92ec53a9-92e6-4809-8888-2910b1cb6698)
+%{for peer in var.wireguard_authorized_peers}
           [Peer]
-          PublicKey = 50XfvMPSDUBuE6pLeEflgUbQxNZ5zkzFPu9uJ7Lq4z8=
-          PresharedKey = P+geYqnRus+83pdMwiZAtkEDPP5MllI3JCmYU2hwhlM=
-          AllowedIPs = 10.8.0.2/32
+          #friendly_name = ${peer.friendly_name}
+          PublicKey = ${peer.public_key}
+          AllowedIPs = ${peer.allowed_ips}
+%{endfor~}
 EOF
 }
 
 data "ct_config" "wireguard_vpn" {
   strict       = true
   pretty_print = false
-
   content      = local.ignition_wireguard_vpn
 }
 

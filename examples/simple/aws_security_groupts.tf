@@ -25,7 +25,7 @@ resource "aws_security_group_rule" "dns_connectivity" {
   from_port                = 53
   to_port                  = 53
   protocol                 = "udp"
-  cidr_blocks              = [data.aws_vpc.default.cidr_block]  
+  cidr_blocks              = ["0.0.0.0/0"]  
   security_group_id        = module.wireguard_vpn.wireguard_vpn_security_group_id
 }
 
@@ -35,7 +35,7 @@ resource "aws_security_group_rule" "dns_connectivity_fallback" {
   from_port                = 53
   to_port                  = 53
   protocol                 = "tcp"
-  cidr_blocks              = [data.aws_vpc.default.cidr_block] 
+  cidr_blocks              = ["0.0.0.0/0"] 
   security_group_id        = module.wireguard_vpn.wireguard_vpn_security_group_id
 }
 
