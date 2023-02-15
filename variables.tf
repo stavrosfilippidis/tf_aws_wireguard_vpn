@@ -141,31 +141,3 @@ variable "wireguard_private_key" {
   type        = string
   description = "Wireguard private key."
 }
-
-        # inline: |
-        #   [Interface]
-        #   PrivateKey = ${var.wireguard_private_key}
-        #   Address = ${var.wireguard_interface_address}
-        #   ListenPort = ${var.wireguard_port}
-        #   MTU = 1420
-        #   PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o ens5 -j MASQUERADE
-        #   PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ens5 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o ens5 -j MASQUERADE
-
-        #   # Client: stav (92ec53a9-92e6-4809-8888-2910b1cb6698)
-        #   [Peer]
-        #   PublicKey = ${peer.public_key}
-        #   AllowedIPs = ${peer.allowed_ips}
-
-        # inline: |
-        #   [Interface]
-        #   PrivateKey = OJz+yhI/K8zX9LATiKdsGaP1jB2yj32GYr7dFJuDs3Q= 
-        #   Address = 192.0.2.1/24 
-        #   ListenPort = 51820
-        #   MTU = 1420
-        #   PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o ens5 -j MASQUERADE
-        #   PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ens5 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o ens5 -j MASQUERADE
-
-        #   # Client: stav (92ec53a9-92e6-4809-8888-2910b1cb6698)
-        #   [Peer]
-        #   PublicKey = Q4LijXHxqNcTZA/iGyIxA3ra2lSZlQwYbcN0xcmdJCI=
-        #   AllowedIPs = 192.0.2.1/32
