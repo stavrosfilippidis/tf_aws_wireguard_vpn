@@ -19,7 +19,47 @@ A typical VPN connection works by creating an encrypted tunnel between your devi
 WireGuard is a newer VPN protocol that is designed to be faster, more secure, and easier to use than older protocols like OpenVPN and IPSec. It uses modern cryptographic techniques to ensure the security and privacy of your internet traffic, while also being lightweight and efficient enough to be used on mobile devices and other low-powered devices.
 
 
-## Practicle Example 
+## Customization 
+
+### Example 
+There is an example folder within this repo that imports the module and customizes it with passing variables. 
+Consider that some variables are mandatory (i.e. vpc id) and some others are optional (i.e. ami id). You have a range of options to customize for your needs. You might have a different network setup or different performance requirements. 
+
+### Variables 
+
+**Required**   
+vpc_id  
+subnet_ids   
+wireguard_interface_address   
+wireguard_private_key  
+
+**Optional**  
+module_name  
+ami_id  
+ami_owner  
+wireguard_traffic_port  
+wireguard_client_port  
+wireguard_vpn_image  
+wireguard_wg_host  
+wireguard_password  
+wireguard_prometheus_exporter_image_repository  
+wireguard_prometheus_exporter_image_version  
+wireguard_prometheus_port 
+authorized_keys  
+node_exporter_image_name 
+instance_type 
+instance_volume_size  
+instance_desired_count   
+instance_max_count  
+instance_min_count  
+wireguard_interface_name   
+wireguard_authorized_peers   
+wireguard_ingress_cidr_blocks   
+
+The infrastructure created through this module can be adapted through variables.
+
+
+## Potential Implementation
 
 The following graph showcases how you could split your network and than access through your Wireguard VPN instance. In this particular case your observability, metrics or kubernetes cluster would not be exposed on ports like ssh. 
 
