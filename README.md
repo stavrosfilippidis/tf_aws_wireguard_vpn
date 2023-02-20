@@ -10,10 +10,7 @@ In practical terms, this means that if you use a VPN that uses WireGuard, you ca
 
 This allows you to keep your instances within EC2 closed to outside traffic on protocols like ssh and reduce the attack surface. 
 
-
-![](https://github.com/stavrosfilippidis/architecture_diagrams/blob/main/vpn_access.png =250x250)
-
-
+![alt_text](https://github.com/stavrosfilippidis/architecture_diagrams/blob/main/vpn_access.png)
 
 # TO DO 
 - fetch the current ip and place it in the wireguard configuration
