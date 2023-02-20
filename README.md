@@ -5,7 +5,6 @@
 This terraform module creates a vpn instance on AWS EC2 that functions as bastion host for your infrastructure. 
 It's leveraging Fedora Core OS as a reliable and secure base and comes preconfigured through systemd. 
 In practical terms, this means that if you use a VPN that uses WireGuard, you can expect faster and more reliable connections than you might get with other protocols. You may also find it easier to set up and configure, as it has fewer moving parts and is less complex than older protocols.
-
 This allows you to keep your instances within EC2 closed to outside traffic on protocols like ssh and reduce the attack surface. 
 
 ## What is a VPN  
@@ -18,6 +17,8 @@ A typical VPN connection works by creating an encrypted tunnel between your devi
 
 WireGuard is a newer VPN protocol that is designed to be faster, more secure, and easier to use than older protocols like OpenVPN and IPSec. It uses modern cryptographic techniques to ensure the security and privacy of your internet traffic, while also being lightweight and efficient enough to be used on mobile devices and other low-powered devices.
 
+Find out more under:  
+https://www.wireguard.com/
 
 ## Customization 
 
