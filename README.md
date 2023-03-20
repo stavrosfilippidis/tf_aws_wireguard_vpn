@@ -70,8 +70,4 @@ wireguard_ingress_cidr_blocks
 The infrastructure created through this module can be adapted through variables.
 
 
-## Potential Implementation
 
-The following graph showcases how you could split your network and than access through your Wireguard VPN instance. In this particular case your observability, metrics or kubernetes cluster would not be exposed on ports like ssh. 
-
-![alt_text](https://github.com/stavrosfilippidis/architecture_diagrams/blob/main/vpn_access.png)
